@@ -29,4 +29,12 @@ public class KeyValuePair {
   public String getValue() {
     return value;
   }
+  
+  /**
+   * Sets the value to the key-value pair.
+   * @param value the value to set to the key-value pair
+   */
+  public void setValue(String value) {
+    this.value = value;
+  }
 }

@@ -9,11 +9,11 @@ public class BasicHashTableExample {
    * @param args no arguments needed
    */
   public static void main(String[] args) {
-    BasicHashTable shs = new BasicHashTable();
-    shs.put("Hello", "World");
-    shs.put("Bye", "Bye!");
-    System.out.println(shs.get("Hello"));
-    System.out.println(shs.get("Bye"));
-    System.out.println(shs.get("Woo!"));
+    BasicHashTable bht = new BasicHashTable();
+    bht.put("Hello", "World");
+    bht.put("Bye", "Bye!");
+    System.out.println(bht.get("Hello"));
+    System.out.println(bht.get("Bye"));
+    System.out.println(bht.get("Woo!"));
   }
 }

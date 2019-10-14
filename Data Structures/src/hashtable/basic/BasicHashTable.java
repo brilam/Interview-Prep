@@ -10,12 +10,10 @@ import hashtable.KeyValuePair;
  * the example code given (no collision or resizing needed) as the hashtable can 
  * contain all the elements without any problems.
  * @author Brian
- * @param <K> the type of the keys
- * @param <V> the type of the values
  */
 public class BasicHashTable {
   private int size;
-  public KeyValuePair[] keysAndValues;
+  private KeyValuePair[] keysAndValues;
   
   /**
    * Creates MyHashTable (default size is 10).
@@ -52,7 +50,7 @@ public class BasicHashTable {
    * @return the value for the particular key
    */
   public String get(String key) {
-    int index = hashKey(key) % 10;
+    int index = hashKey(key) % size;
     if (keysAndValues[index] == null) {
       return "Not in the hashtable";
     }
@@ -70,7 +68,7 @@ public class BasicHashTable {
    * @param value the value to place for the key in the hashtable
    */
   public void put(String key, String value) {
-    int index = hashKey(key) % 10;
+    int index = hashKey(key) % size;
     keysAndValues[index] = new KeyValuePair(key, value);
   }
 }
