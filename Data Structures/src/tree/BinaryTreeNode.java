@@ -5,7 +5,7 @@ package tree;
  * @author Brian
  * @param <T> the type for the binary tree node
  */
-public class BinaryTreeNode<T> {
+public class BinaryTreeNode<T> implements Comparable {
   private T val;
   private BinaryTreeNode<T> left = null;
   private BinaryTreeNode<T> right = null;
@@ -75,5 +75,13 @@ public class BinaryTreeNode<T> {
    */
   public String toString() {
     return val.toString();
+  }
+
+  @Override
+  public int compareTo(Object otherNode) {
+    BinaryTreeNode<T> btn = (BinaryTreeNode<T>) otherNode;
+    Integer currVal = (Integer) this.getValue();
+    Integer otherVal = (Integer) btn.getValue();
+    return currVal.compareTo(otherVal);
   }
 }
