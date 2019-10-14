@@ -43,7 +43,7 @@ public class BasicHashTable {
    * @return a hashed value for the key (this isn't the index!)
    */
   public int hashKey(String key) {
-    return key.hashCode();
+    return key.charAt(0);
   }
   
   /**
