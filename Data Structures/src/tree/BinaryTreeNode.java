@@ -54,6 +54,10 @@ public class BinaryTreeNode<T> implements Comparable {
     return val;
   }
   
+  public void setValue(T val) {
+    this.val = val;
+  }
+  
   /**
    * Returns the value for the left child of the binary tree node.
    * @return the value for the left child of the binary tree node

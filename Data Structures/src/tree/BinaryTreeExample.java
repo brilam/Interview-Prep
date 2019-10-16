@@ -19,11 +19,11 @@ public class BinaryTreeExample {
     System.out.print("\nPost order traversal: ");
     postOrderTraversal(root);
     System.out.println("\nNode Level Traversal, Level 0:");
-    nodeLevelTraversal(root, 0);
-    System.out.println("\nNode Level Traversal, Level 1:");
     nodeLevelTraversal(root, 1);
-    System.out.println("\nNode Level Traversal, Level 2:");
+    System.out.println("\nNode Level Traversal, Level 1:");
     nodeLevelTraversal(root, 2);
+    System.out.println("\nNode Level Traversal, Level 2:");
+    nodeLevelTraversal(root, 3);
   }
   
   /**
@@ -71,7 +71,7 @@ public class BinaryTreeExample {
    * @param level the level to print from
    */
   private static void nodeLevelTraversal(BinaryTreeNode<Integer> node, int level) {
-    nodeLevelTraversal(node, level, 0);
+    nodeLevelTraversal(node, level, 1);
   }
   
   /**
