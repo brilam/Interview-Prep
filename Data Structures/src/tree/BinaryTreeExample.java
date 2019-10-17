@@ -1,6 +1,11 @@
 package tree;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BinaryTreeExample {
+  private List<BinaryTreeNode<Integer>> path;
+  
   /**
    * Creates a binary tree and shows various traversal methods.
    * @param args no arguments needed
@@ -24,6 +29,10 @@ public class BinaryTreeExample {
     nodeLevelTraversal(root, 2);
     System.out.println("\nNode Level Traversal, Level 2:");
     nodeLevelTraversal(root, 3);
+    System.out.println("\nPath: ");
+    BinaryTreeExample bte = new BinaryTreeExample();
+    System.out
+        .println(bte.leastCommonAncestor(root, new BinaryTreeNode<>(2), new BinaryTreeNode<>(0)));
   }
   
   /**
@@ -87,5 +96,82 @@ public class BinaryTreeExample {
       nodeLevelTraversal(node.getLeft(), level, currLevel + 1);
       nodeLevelTraversal(node.getRight(), level, currLevel + 1);
     }
+  }
+  
+  /**
+   * Returns the least common ancestor of two nodes given the root node of the tree.
+   * @param rootNode the root node of the tree
+   * @param node1 the first node to look for an ancestor for
+   * @param node2 the second node to look for an ancestor for
+   * @return the least common ancestor of two nodes given the root node of the tree
+   */
+  private BinaryTreeNode<Integer> leastCommonAncestor(BinaryTreeNode<Integer> rootNode,
+      BinaryTreeNode<Integer> node1, BinaryTreeNode<Integer> node2) {
+    List<BinaryTreeNode<Integer>> path1 = findPath(rootNode, node1);
+    List<BinaryTreeNode<Integer>> path2 = findPath(rootNode, node2);
+    
+    int times = Math.min(path1.size(), path2.size());
+    
+    for (int index = 0; index < times; index++) {
+      if (!path1.get(index).equals(path2.get(index))) {
+        return path1.get(index - 1);
+      }
+    }
+    
+    if (path1.size() < path2.size()) {
+      return path1.get(path1.size() - 1);
+    }
+    return path2.get(path2.size() - 1);
+  }
+  
+  /**
+   * Returns the path to the node from the root.
+   * @param root the root of the tree
+   * @param node the node to look for
+   * @return the path to the node from the root
+   */
+  private List<BinaryTreeNode<Integer>> findPath(BinaryTreeNode<Integer> root,
+      BinaryTreeNode<Integer> node) {
+    path = new ArrayList<>();
+    findPathHelper(root, node);
+    return path;
+  }
+  
+  /**
+   * Returns if the path to the node exists from the root node.
+   * @param rootNode the root node
+   * @param node the node to look for
+   * @return if the path to the node exists from the root nod
+   */
+  private boolean findPathHelper(BinaryTreeNode<Integer> rootNode,
+      BinaryTreeNode<Integer> node) {
+    // If we've reached the end of the tree, we are done
+    if (rootNode == null) {
+      return false;
+    }
+    
+    // Add the root node to the path for now
+    path.add(rootNode);
+    
+    // If we found the node, we've found the path
+    if (rootNode.equals(node)) {
+      return true;
+    }
+    
+    // If there exists a left subtree, we can still find a path
+    if (rootNode.getLeft() != null && findPathHelper(rootNode.getLeft(), node)) {
+      return true;
+    }
+    
+    // If there exists a right subtree, we can still find a path
+    if (rootNode.getRight() != null && findPathHelper(rootNode.getRight(), node)) {
+      return true;
+    }
+    
+    /* If it is not found or we've gone through both the left and right subtree,
+     * it is not possible. Remove the last node added.
+     */
+    path.remove(rootNode);
+    return false; 
   }
 }

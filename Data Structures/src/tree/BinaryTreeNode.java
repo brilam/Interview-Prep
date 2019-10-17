@@ -88,4 +88,13 @@ public class BinaryTreeNode<T> implements Comparable {
     Integer otherVal = (Integer) btn.getValue();
     return currVal.compareTo(otherVal);
   }
+  
+  @Override
+  public boolean equals(Object otherNode) {
+    if (otherNode instanceof BinaryTreeNode) {
+      BinaryTreeNode<T> bn = (BinaryTreeNode<T>) otherNode;
+      return bn.getValue().equals(this.getValue());
+    }
+    return false;
+  }
 }
