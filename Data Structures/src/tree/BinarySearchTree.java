@@ -1,5 +1,9 @@
 package tree;
 
+import java.util.ArrayList;
+import java.util.List;
+import graph.GraphNode;
+
 /**
  * This class is used to represent a binary search
  * tree.
@@ -139,5 +143,67 @@ public class BinarySearchTree<T> {
       System.out.print(node + " ");
       inOrderTraversal(node.getRight());
     }
+  }
+  
+  /**
+   * Returns the lowest common ancestor between two nodes.
+   * @param node1 first node to find the lowest common ancestor of
+   * @param node2 second to find the lowest common ancestor of
+   * @return the lowest common ancestor between two nodes
+   */
+  public BinaryTreeNode<T> lowestCommonAncestor(BinaryTreeNode<T> node1, BinaryTreeNode<T> node2) {
+    // Gets the path for both
+    List<BinaryTreeNode<T>> path1 = findPath(node1);
+    List<BinaryTreeNode<T>> path2 = findPath(node2);
+    
+    // The number of times to loop
+    int times = Math.min(path1.size(), path2.size());
+    
+    // Loop through both paths
+    for (int index = 0; index < times; index++) {
+      // Whenever the nodes don't match, return the last node (the lowest common ancestor)
+      if (path1.get(index).compareTo(path2.get(index)) != 0) {
+        return path1.get(index - 1);
+      }
+    }
+    
+    /* If everything does match, return the last node we looped in either path1 or path2 (whichever
+    is the shorter one) */
+    if (path1.size() < path2.size()) {
+      return path1.get(times - 1);
+    }
+    return path2.get(times - 1);
+  }
+  
+  /**
+   * Finds the parent to the given node.
+   * @param node the node to look for
+   */
+  public List<BinaryTreeNode<T>> findPath(BinaryTreeNode<T> node) {
+    List<BinaryTreeNode<T>> path = new ArrayList<BinaryTreeNode<T>>();
+    path.add(root);
+    if (node.compareTo(root) > 0) {
+      findPath(root.getRight(), node, path);
+    } else if (node.compareTo(root) < 0) {
+      findPath(root.getLeft(), node, path);
+    }
+    return path;
+  }
+  
+  /**
+   * Returns the path to the given node.
+   * @param node the node to look for
+   */
+  private List<BinaryTreeNode<T>> findPath(BinaryTreeNode<T> rootNode, BinaryTreeNode<T> node,
+      List<BinaryTreeNode<T>> path) {
+
+    if (node.compareTo(rootNode) == 0) {
+      return path;
+    } else if (node.compareTo(rootNode) > 0) {
+      path.add(rootNode);
+      return findPath(rootNode.getRight(), node, path);
+    }
+    path.add(rootNode);
+    return findPath(rootNode.getLeft(), node, path);
   }
 }
